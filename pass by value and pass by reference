@@ -1,0 +1,35 @@
+#include <iostream>
+using namespace std;
+
+class Cal {
+public:
+    // Static function to add two numbers (pass by value)
+    static int add(int a, int b) {
+        return a + b;
+    }
+
+    // Static function to multiply two numbers (pass by reference)
+    static void multiply(int& a, int& b, int& result) {
+        result = a * b;
+    }
+};
+
+int main() {
+    int num1, num2, result;
+
+    // considering input from user
+    cout << "Enter first number ";
+    cin >> num1;
+    cout << "Enter second number ";
+    cin >> num2;
+
+    // static function with pass by value
+    int sum = Cal::add(num1, num2);
+    cout << "The sum is" << sum << endl;
+
+    // static function with pass by reference
+    Cal::multiply(num1, num2, result);
+    cout << "The product is" << result << endl;
+
+    return 0;
+}
