@@ -1,0 +1,20 @@
+#include <iostream>
+#include <string>
+#include <algorithm> // For std::reverse
+
+int main() {
+    // Prompt the user for input
+    std::cout << "Enter a series of characters (can include spaces, digits, special characters): ";
+    
+    // Read the entire line of input (to handle spaces)
+    std::string input;
+    std::getline(std::cin, input);
+    
+    // Reverse the string
+    std::reverse(input.begin(), input.end());
+    
+    // Output the reversed string
+    std::cout << "Reversed series: " << input << std::endl;
+    
+    return 0;
+}
