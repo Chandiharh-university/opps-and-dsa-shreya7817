@@ -1,0 +1,28 @@
+#include <iostream>
+using namespace std;
+
+// Function to check if a number is prime
+bool isPrime(int n) {
+    if (n <= 1) return false; // 0 and 1 are not prime numbers
+    for (int i = 2; i * i <= n; ++i) { // Check divisors up to sqrt(n)
+        if (n % i == 0)
+            return false; // Divisible by i, not prime
+    }
+    return true; // No divisors, it's prime
+}
+
+int main() {
+    int num;
+
+    // Input from the user
+    cout << "Enter an integer: ";
+    cin >> num;
+
+    // Check if the number is prime
+    if (isPrime(num))
+        cout << num << " is a prime number." << endl;
+    else
+        cout << num << " is not a prime number." << endl;
+
+    return 0;
+}
