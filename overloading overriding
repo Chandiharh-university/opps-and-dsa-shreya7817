@@ -1,0 +1,45 @@
+#include <iostream>
+using namespace std;
+
+// Template function to add three numbers
+template <typename T>
+T add(T a, T b, T c) {
+    return a + b + c;
+}
+
+// Class to demonstrate operator overloading
+template <typename T>
+class Calculator {
+private:
+    T a, b, c;
+public:
+    Calculator(T x, T y, T z) : a(x), b(y), c(z) {}
+
+    // Overload '+' operator to add objects
+    T operator+(Calculator const &obj) {
+        return this->a + obj.a + this->b + obj.b + this->c + obj.c;
+    }
+
+    T sum() {
+        return a + b + c;
+    }
+};
+
+int main() {
+    // Take user input for three numbers
+    cout << "Enter three numbers (any datatype, e.g., int, float, etc.): ";
+    float x, y, z; // You can change the datatype here
+    cin >> x >> y >> z;
+
+    // Using the template function
+    cout << "Sum using template function: " << add(x, y, z) << endl;
+
+    // Using the class with operator overloading
+    Calculator<float> obj1(x, y, z);
+    Calculator<float> obj2(1.1, 2.2, 3.3); // Example second object
+
+    cout << "Sum using class method: " << obj1.sum() << endl;
+    cout << "Sum of two objects using operator overloading: " << obj1 + obj2 << endl;
+
+    return 0;
+}
