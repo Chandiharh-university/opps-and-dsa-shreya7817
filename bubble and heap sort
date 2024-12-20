@@ -1,0 +1,105 @@
+#include <iostream>
+using namespace std;
+
+// Function for Heap Sort
+void heapify(int arr[], int n, int i);
+void heapSort(int arr[], int n);
+
+// Function for Bubble Sort
+void bubbleSort(int arr[], int n);
+
+// Utility function to display the array
+void displayArray(int arr[], int size);
+
+int main() {
+    int n;
+    cout << "Enter the number of elements: ";
+    cin >> n;
+
+    int arr[n];
+    cout << "Enter " << n << " elements: ";
+    for (int i = 0; i < n; i++) {
+        cin >> arr[i];
+    }
+
+    // Display the original array
+    cout << "\nOriginal Array: ";
+    displayArray(arr, n);
+
+    // Perform Heap Sort
+    int heapArr[n];
+    copy(arr, arr + n, heapArr); // Copy the array for Heap Sort
+    heapSort(heapArr, n);
+    cout << "\nArray after Heap Sort: ";
+    displayArray(heapArr, n);
+
+    // Perform Bubble Sort
+    int bubbleArr[n];
+    copy(arr, arr + n, bubbleArr); // Copy the array for Bubble Sort
+    bubbleSort(bubbleArr, n);
+    cout << "\nArray after Bubble Sort: ";
+    displayArray(bubbleArr, n);
+
+    return 0;
+}
+
+// Heapify function to maintain the heap property
+void heapify(int arr[], int n, int i) {
+    int largest = i;         // Initialize the largest as root
+    int left = 2 * i + 1;    // Left child
+    int right = 2 * i + 2;   // Right child
+
+    // If left child is larger than root
+    if (left < n && arr[left] > arr[largest]) {
+        largest = left;
+    }
+
+    // If right child is larger than largest so far
+    if (right < n && arr[right] > arr[largest]) {
+        largest = right;
+    }
+
+    // If the largest is not root
+    if (largest != i) {
+        swap(arr[i], arr[largest]);
+
+        // Recursively heapify the affected subtree
+        heapify(arr, n, largest);
+    }
+}
+
+// Function to perform Heap Sort
+void heapSort(int arr[], int n) {
+    // Build a max heap
+    for (int i = n / 2 - 1; i >= 0; i--) {
+        heapify(arr, n, i);
+    }
+
+    // Extract elements from the heap one by one
+    for (int i = n - 1; i > 0; i--) {
+        // Move the current root to the end
+        swap(arr[0], arr[i]);
+
+        // Call heapify on the reduced heap
+        heapify(arr, i, 0);
+    }
+}
+
+// Function to perform Bubble Sort
+void bubbleSort(int arr[], int n) {
+    for (int i = 0; i < n - 1; i++) {
+        for (int j = 0; j < n - i - 1; j++) {
+            if (arr[j] > arr[j + 1]) {
+                swap(arr[j], arr[j + 1]);
+            }
+        }
+    }
+}
+
+// Utility function to display the array
+void displayArray(int arr[], int size) {
+    for (int i = 0; i < size; i++) {
+        cout << arr[i] << " ";
+    }
+    cout << endl;
+}
