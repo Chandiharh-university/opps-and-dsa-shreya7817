@@ -1,0 +1,87 @@
+#include <iostream>
+using namespace std;
+
+// Function for Quick Sort
+void quickSort(int arr[], int low, int high);
+int partition(int arr[], int low, int high);
+
+// Function for Insertion Sort
+void insertionSort(int arr[], int n);
+
+// Utility function to display the array
+void displayArray(int arr[], int size);
+
+int main() {
+    int n;
+    cout << "Enter the number of elements: ";
+    cin >> n;
+
+    int arr[n];
+    cout << "Enter " << n << " elements: ";
+    for (int i = 0; i < n; i++) {
+        cin >> arr[i];
+    }
+
+    // Display original array
+    cout << "\nOriginal Array: ";
+    displayArray(arr, n);
+
+    // Perform Quick Sort
+    int quickArr[n];
+    copy(arr, arr + n, quickArr); // Copy the array for quick sort
+    quickSort(quickArr, 0, n - 1);
+    cout << "\nArray after Quick Sort: ";
+    displayArray(quickArr, n);
+
+    // Perform Insertion Sort
+    int insertionArr[n];
+    copy(arr, arr + n, insertionArr); // Copy the array for insertion sort
+    insertionSort(insertionArr, n);
+    cout << "\nArray after Insertion Sort: ";
+    displayArray(insertionArr, n);
+
+    return 0;
+}
+
+// Quick Sort function definitions
+void quickSort(int arr[], int low, int high) {
+    if (low < high) {
+        int pi = partition(arr, low, high);
+        quickSort(arr, low, pi - 1);
+        quickSort(arr, pi + 1, high);
+    }
+}
+
+int partition(int arr[], int low, int high) {
+    int pivot = arr[high];
+    int i = low - 1;
+    for (int j = low; j < high; j++) {
+        if (arr[j] < pivot) {
+            i++;
+            swap(arr[i], arr[j]);
+        }
+    }
+    swap(arr[i + 1], arr[high]);
+    return i + 1;
+}
+
+// Insertion Sort function definition
+void insertionSort(int arr[], int n) {
+    for (int i = 1; i < n; i++) {
+        int key = arr[i];
+        int j = i - 1;
+        while (j >= 0 && arr[j] > key) {
+            arr[j + 1] = arr[j];
+            j--;
+        }
+        arr[j + 1] = key;
+    }
+}
+
+// Utility function to display the array
+void displayArray(int arr[], int size) {
+    for (int i = 0; i < size; i++) {
+        cout << arr[i] << " ";
+    }
+    cout << endl;
+}
