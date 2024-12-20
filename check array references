@@ -1,0 +1,65 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+
+class ArrayManager {
+private:
+    vector<int> arr; // Dynamic array using vector to store elements
+
+public:
+    // Method to create the array with user input
+    void createArray(int size) {
+        arr.resize(size); // Resize the vector to the user-defined size
+        cout << "Enter " << size << " elements for the array:" << endl;
+        for (int i = 0; i < size; i++) {
+            cout << "Element " << i << ": ";
+            cin >> arr[i];
+        }
+    }
+
+    // Method to print references of elements at specified indices
+    void displayReferences(const vector<int>& indices) {
+        cout << "\nDisplaying references of the specified indices:" << endl;
+        for (int index : indices) {
+            if (index >= 0 && index < arr.size()) {
+                cout << "Reference of element at Index " << index << ": " << &arr[index] << endl;
+            } else {
+                cout << "Index " << index << ": Invalid index!" << endl;
+            }
+        }
+    }
+
+    // Getter for the size of the array
+    int getSize() const {
+        return arr.size();
+    }
+};
+
+int main() {
+    ArrayManager manager;
+
+    // User specifies the size of the array
+    int size;
+    cout << "Enter the number of elements in the array: ";
+    cin >> size;
+
+    // Create and populate the array
+    manager.createArray(size);
+
+    // User specifies the indices whose references they want to view
+    int numIndices;
+    cout << "How many indices' references would you like to view? ";
+    cin >> numIndices;
+
+    vector<int> indices(numIndices);
+    cout << "Enter the indices you want to display (between 0 and " << size - 1 << "):" << endl;
+    for (int i = 0; i < numIndices; i++) {
+        cout << "Index " << i + 1 << ": ";
+        cin >> indices[i];
+    }
+
+    // Display the references of the specified indices
+    manager.displayReferences(indices);
+
+    return 0;
+}
