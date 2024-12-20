@@ -1,0 +1,82 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+
+class BubbleSort {
+private:
+    vector<int> arr; // Array to sort
+
+public:
+    // Method to get user input
+    void inputArray(int size) {
+        arr.resize(size);
+        cout << "Enter " << size << " elements for the array:" << endl;
+        for (int i = 0; i < size; i++) {
+            cout << "Element " << i + 1 << ": ";
+            cin >> arr[i];
+        }
+    }
+
+    // Method to perform bubble sort and print steps
+    void sortAndDisplaySteps() {
+        int n = arr.size();
+        cout << "\nStarting Bubble Sort...\n" << endl;
+        for (int i = 0; i < n - 1; i++) {
+            bool swapped = false; // To check if swapping happened in this pass
+            cout << "Pass " << i + 1 << ":" << endl;
+
+            for (int j = 0; j < n - i - 1; j++) {
+                cout << "  Comparing " << arr[j] << " and " << arr[j + 1];
+                if (arr[j] > arr[j + 1]) {
+                    swap(arr[j], arr[j + 1]);
+                    cout << " -> Swapped" << endl;
+                    swapped = true;
+                } else {
+                    cout << " -> No Swap" << endl;
+                }
+            }
+
+            // Print array after each pass
+            cout << "  Array after pass " << i + 1 << ": ";
+            for (int k = 0; k < n; k++) {
+                cout << arr[k] << " ";
+            }
+            cout << "\n" << endl;
+
+            // If no swapping happened, array is sorted
+            if (!swapped) {
+                cout << "No swapping occurred in this pass. Array is sorted." << endl;
+                break;
+            }
+        }
+    }
+
+    // Method to print the sorted array
+    void printSortedArray() const {
+        cout << "Sorted Array: ";
+        for (int num : arr) {
+            cout << num << " ";
+        }
+        cout << endl;
+    }
+};
+
+int main() {
+    BubbleSort sorter;
+
+    // Input the array size
+    int size;
+    cout << "Enter the number of elements in the array: ";
+    cin >> size;
+
+    // Input the array elements
+    sorter.inputArray(size);
+
+    // Perform bubble sort and display each step
+    sorter.sortAndDisplaySteps();
+
+    // Display the sorted array
+    sorter.printSortedArray();
+
+    return 0;
+}
