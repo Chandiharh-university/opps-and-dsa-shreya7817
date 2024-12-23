@@ -1,0 +1,102 @@
+#include <iostream>
+using namespace std;
+
+class Queue {
+private:
+    int* arr;
+    int front, rear, size, capacity;
+
+public:
+    // Constructor to initialize the queue
+    Queue(int cap) {
+        capacity = cap;
+        arr = new int[capacity];
+        front = 0;
+        rear = -1;
+        size = 0;
+    }
+
+    // Destructor to free memory
+    ~Queue() {
+        delete[] arr;
+    }
+
+    // Function to add an element to the queue
+    void enqueue(int element) {
+        if (size == capacity) {
+            cout << "Queue is full! Cannot enqueue " << element << "." << endl;
+            return;
+        }
+        rear = (rear + 1) % capacity;
+        arr[rear] = element;
+        size++;
+        cout << element << " enqueued to the queue." << endl;
+    }
+
+    // Function to remove an element from the queue
+    void dequeue() {
+        if (size == 0) {
+            cout << "Queue is empty! Cannot dequeue." << endl;
+            return;
+        }
+        cout << arr[front] << " dequeued from the queue." << endl;
+        front = (front + 1) % capacity;
+        size--;
+    }
+
+    // Function to display the queue
+    void display() {
+        if (size == 0) {
+            cout << "Queue is empty!" << endl;
+            return;
+        }
+        cout << "Queue contents: ";
+        for (int i = 0; i < size; i++) {
+            cout << arr[(front + i) % capacity] << " ";
+        }
+        cout << endl;
+    }
+};
+
+int main() {
+    int capacity;
+
+    // User defines the size of the queue
+    cout << "Enter the size of the queue: ";
+    cin >> capacity;
+
+    Queue queue(capacity);
+
+    // Simple menu-driven interface
+    int choice, element;
+    do {
+        cout << "\nQueue Operations Menu:\n";
+        cout << "1. Enqueue\n";
+        cout << "2. Dequeue\n";
+        cout << "3. Display Queue\n";
+        cout << "4. Exit\n";
+        cout << "Enter your choice: ";
+        cin >> choice;
+
+        switch (choice) {
+        case 1:
+            cout << "Enter the element to enqueue: ";
+            cin >> element;
+            queue.enqueue(element);
+            break;
+        case 2:
+            queue.dequeue();
+            break;
+        case 3:
+            queue.display();
+            break;
+        case 4:
+            cout << "Exiting program..." << endl;
+            break;
+        default:
+            cout << "Invalid choice! Please try again." << endl;
+        }
+    } while (choice != 4);
+
+    return 0;
+}
