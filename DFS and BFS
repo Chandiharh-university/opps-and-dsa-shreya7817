@@ -1,0 +1,100 @@
+#include <iostream>
+#include <vector>
+#include <queue>
+#include <stack>
+
+using namespace std;
+
+class Graph {
+private:
+    int vertices; // Number of vertices
+    vector<vector<int>> adjList; // Adjacency list
+
+public:
+    // Constructor to initialize the graph with a given number of vertices
+    Graph(int v) {
+        vertices = v;
+        adjList.resize(v);
+    }
+
+    // Function to add an edge to the graph
+    void addEdge(int u, int v) {
+        adjList[u].push_back(v);
+        adjList[v].push_back(u); // For an undirected graph
+    }
+
+    // Function to perform DFS
+    void DFS(int start) {
+        vector<bool> visited(vertices, false);
+        stack<int> s;
+        s.push(start);
+
+        cout << "DFS Traversal: ";
+        while (!s.empty()) {
+            int current = s.top();
+            s.pop();
+
+            if (!visited[current]) {
+                cout << current << " ";
+                visited[current] = true;
+            }
+
+            for (auto it = adjList[current].rbegin(); it != adjList[current].rend(); ++it) {
+                if (!visited[*it]) {
+                    s.push(*it);
+                }
+            }
+        }
+        cout << endl;
+    }
+
+    // Function to perform BFS
+    void BFS(int start) {
+        vector<bool> visited(vertices, false);
+        queue<int> q;
+        q.push(start);
+        visited[start] = true;
+
+        cout << "BFS Traversal: ";
+        while (!q.empty()) {
+            int current = q.front();
+            q.pop();
+            cout << current << " ";
+
+            for (int neighbor : adjList[current]) {
+                if (!visited[neighbor]) {
+                    q.push(neighbor);
+                    visited[neighbor] = true;
+                }
+            }
+        }
+        cout << endl;
+    }
+};
+
+int main() {
+    int vertices, edges;
+    cout << "Enter the number of vertices: ";
+    cin >> vertices;
+    
+    Graph g(vertices);
+
+    cout << "Enter the number of edges: ";
+    cin >> edges;
+
+    cout << "Enter the edges (u v):\n";
+    for (int i = 0; i < edges; ++i) {
+        int u, v;
+        cin >> u >> v;
+        g.addEdge(u, v);
+    }
+
+    int startVertex;
+    cout << "Enter the starting vertex for traversal: ";
+    cin >> startVertex;
+
+    g.DFS(startVertex);
+    g.BFS(startVertex);
+
+    return 0;
+}
